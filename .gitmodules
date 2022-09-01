@@ -1,8 +1,0 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/2022-SeongNam-Team-C/Ladder-Backend.git
-	branch = master
-[submodule "frontend"]
-	path = frontend
-	url = https://github.com/2022-SeongNam-Team-C/Ladder-Frontend.git
-	branch = master
