@@ -8,9 +8,26 @@ services:
     build:
       context: ./Ladder-Backend
     ports:
-      - 5123:5123
+      - 5001:5001
     volumes:
       - ./Ladder-Backend/:/Ladder-Backend/
     environment:
       FLASK_DEBUG: 1 
-    command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
+    command: gunicorn -w 1 -b backend:5001 app:app --reload
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=ladderdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0829
+    volumes:
+      - postgres:/var/lib/postgres
+
+
+
+volumes:
+    postgres:
