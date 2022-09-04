@@ -14,3 +14,12 @@ services:
     environment:
       FLASK_DEBUG: 1 
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
+
+  frontend:
+    container_name: ladder-frontend
+    build:
+      context: ./Ladder-Frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./Ladder-Frontend/:/Ladder-Frontend
