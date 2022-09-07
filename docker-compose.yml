@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  frontend:
+    container_name: ladder-frontend
+    build:
+      context: ./Ladder-Frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./Ladder-Frontend/:/Ladder-Frontend
 
   backend:
     restart: unless-stopped
@@ -24,9 +32,6 @@ services:
       - POSTGRES_DB=${PG_DB}
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
-
-
-
     volumes:
         - postgres:/var/lib/postgres
 
@@ -40,6 +45,8 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8
       
+      
 volumes:
     postgres:
+
 
