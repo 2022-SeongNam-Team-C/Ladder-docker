@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  frontend:
+    container_name: ladder-frontend
+    build:
+      context: ./Ladder-Frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./Ladder-Frontend/:/Ladder-Frontend
 
   backend:
     restart: unless-stopped
@@ -15,11 +23,30 @@ services:
       FLASK_DEBUG: 1 
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
 
-  frontend:
-    container_name: ladder-frontend
-    build:
-      context: ./Ladder-Frontend
+  postgres:
+    container_name: postgres
+    image: postgres:latest
     ports:
-      - 8080:8080
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=${PG_DB}
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
     volumes:
-      - ./Ladder-Frontend/:/Ladder-Frontend
+        - postgres:/var/lib/postgres
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - 8088:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+      
+      
+volumes:
+    postgres:
+
+
