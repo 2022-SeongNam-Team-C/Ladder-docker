@@ -7,8 +7,8 @@ services:
       context: ./Ladder-Frontend
     ports:
       - 8080:8080
-    # volumes:
-    #  - ./Ladder-Frontend/:/Ladder-Frontend
+    volumes:
+      - frontend:/var/lib/frontend/data
 
   backend:
     restart: unless-stopped
@@ -17,8 +17,8 @@ services:
       context: ./Ladder-Backend
     ports:
       - 5123:5123
-    # volumes:
-    #  - ./Ladder-Backend/:/Ladder-Backend/
+    volumes:
+      - backend:/var/lib/backend/data
     environment:
       FLASK_DEBUG: 1 
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
@@ -45,7 +45,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8
 
-  ai-server:
+  ai:
     container_name: ladder-ai
     build: 
       context: ./Ladder-AI
@@ -53,8 +53,8 @@ services:
       - 5000:5000
     environment:
       FLASK_DEBUG: 1 
-    # volumes:
-    #  - ./Ladder-AI/:/Ladder-AI
+    volumes:
+      - ai:/var/lib/ai/data
 
   prometheus:
     image: prom/prometheus:latest
@@ -82,5 +82,8 @@ networks:
       
 volumes:
     postgres:
+    frontend:
+    backend:
+    ai:
 
 
