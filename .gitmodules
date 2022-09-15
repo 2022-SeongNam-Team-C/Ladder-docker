@@ -1,0 +1,9 @@
+[submodule "Ladder-Backend"]
+	path = Ladder-Backend
+	url = https://github.com/2022-SeongNam-Team-C/Ladder-Backend
+[submodule "Ladder-Frontend"]
+	path = Ladder-Frontend
+	url = https://github.com/2022-SeongNam-Team-C/Ladder-Frontend
+[submodule "Ladder-AI"]
+	path = Ladder-AI
+	url = https://github.com/2022-SeongNam-Team-C/Ladder-AI
