@@ -6,7 +6,7 @@ services:
     build:
       context: ./Ladder-Frontend
     ports:
-      - 8080:8080
+      - 8080:80
     volumes:
       - frontend:/var/lib/frontend/data
 
