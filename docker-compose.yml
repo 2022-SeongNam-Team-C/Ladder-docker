@@ -24,7 +24,7 @@ services:
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
 
   postgres:
-    container_name: ladder-postgres
+    container_name: ladderdb
     image: postgres:latest
     ports:
       - 5432:5432
@@ -76,6 +76,13 @@ services:
     networks:
       - promnet
 
+  redis-db:
+    image: redis:latest
+    volumes:
+      - redis:/val/lib/redis/data
+    ports:
+      - "6379:6379"
+
 networks:
   promnet:
     driver: bridge    
@@ -85,5 +92,6 @@ volumes:
     frontend:
     backend:
     ai:
+    redis:
 
 
