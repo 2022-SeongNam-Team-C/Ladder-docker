@@ -76,6 +76,13 @@ services:
     networks:
       - promnet
 
+  redis-db:
+    image: redis:latest
+    volumes:
+      - redis:/val/lib/redis/data
+    ports:
+      - "6379:6379"
+
 networks:
   promnet:
     driver: bridge    
@@ -85,5 +92,6 @@ volumes:
     frontend:
     backend:
     ai:
+    redis:
 
 

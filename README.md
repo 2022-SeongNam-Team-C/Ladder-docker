@@ -12,4 +12,13 @@ docker-compose -f docker-compose.yml up -d --build
 
 ```
 
-* 로컬에서 돌리실 때 서브모듈 지우시고 각자 작업하시는 브랜치를 docker 레포 안에 넣고 작업해주세요
+
+## docker-compose redis 사용법
+
+```jsx
+redis 사용법
+   - docker exec -it ladder-docker_redis-db_1 redis-cli
+	 - get ${keyname} 으로 해당 아이디의 토큰을 조회할 수 있음
+   - 종료는 ctrl + z
+   - port number: 6379
+```
