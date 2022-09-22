@@ -11,17 +11,23 @@ services:
       - frontend:/var/lib/frontend/data
 
   backend:
-    restart: unless-stopped
-    container_name: ladder-backend
+    container_name: backend
     build:
       context: ./Ladder-Backend
+    expose:
+      - 5123
     ports:
       - 5123:5123
     volumes:
       - backend:/var/lib/backend/data
     environment:
       FLASK_DEBUG: 1 
+    env_file:
+      - .env
+    depends_on:
+      - postgres
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
+    tty: true
 
   postgres:
     container_name: ladder-postgres
@@ -93,5 +99,3 @@ volumes:
     backend:
     ai:
     redis:
-
-
