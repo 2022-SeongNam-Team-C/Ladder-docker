@@ -28,7 +28,7 @@ services:
     tty: true
 
   postgres:
-    container_name: postgres
+    container_name: ladderdb
     image: postgres:latest
     ports:
       - 5432:5432
@@ -50,6 +50,7 @@ services:
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8
       
   rabbit:
+    container_name: rabbitmq
     hostname: rabbit
     image: rabbitmq:3-management
     command: rabbitmq-server
@@ -66,8 +67,8 @@ services:
       - backend
       - ai
 
-
   celery:
+    container_name: celery
     build:
       context: ./Ladder-Backend
       dockerfile: Dockerfile
@@ -78,24 +79,24 @@ services:
       - "rabbit"
       - "backend"
       - "ai"
-    command: ["celery","-A", "app", "worker", "--loglevel=info"]  
+    command: ["celery","-A", "service.image_service", "worker", "--loglevel=info"]  
     volumes:
       - backend:/usr/src/app
 
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:latest
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    container_name: ladder-prometheus
     ports:
       - 9090:9090
     networks:
       - promnet
 
   grafana:
+    container_name: grafana
     image: grafana/grafana
-    container_name: ladder-grafana
     ports:
       - 3001:3001
     # volumes:
@@ -103,7 +104,8 @@ services:
     networks:
       - promnet
 
-  redis-db:
+  redis:
+    container_name: redis
     image: redis:latest
     volumes:
       - redis:/val/lib/redis/data
