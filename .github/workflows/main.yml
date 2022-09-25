@@ -21,11 +21,14 @@ jobs:
       - name: Check Node v # Node v 확인
         run: node -v
       - name: Install Dependencies # AI 레포지토리 의존 파일 설치
-        run: pip install -r ./Ladder-AI/requirements.txt
+        working-directory: ./Ladder-AI
+        run: pip install -r requirements.txt
       - name: Install Dependencies # 백엔드 레포지토리 의존 파일 설치
-        run: pip install -r ./Ladder-Backend/requirements.txt
+        working-directory: ./Ladder-Backend
+        run: pip install -r requirements.txt
       - name: Build # React Build
-        run: yarn install ./Ladder-Frontend/package.json
+        working-directory: ./Ladder-Frontend
+        run: yarn install
       - name: zip create
         run: zip -qq -r ./build-docker.zip .
         shell: bash
