@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout source code. # Repo checkout
         uses: actions/checkout@v2
+        with:
+          submodules: true
       - name: Check Node v # Node v 확인
         run: node -v
       - name: Install Dependencies # AI 레포지토리 의존 파일 설치
@@ -26,7 +28,7 @@ jobs:
       - name: Install Dependencies # 백엔드 레포지토리 의존 파일 설치
         working-directory: ./Ladder-Backend
         run: pip install -r requirements.txt
-      - name: Build # React Build
+      - name: Install Dependencies  # 프론트엔드 레포지토리 의존 파일 설치
         working-directory: ./Ladder-Frontend
         run: yarn install
       - name: zip create
