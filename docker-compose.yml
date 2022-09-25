@@ -24,7 +24,7 @@ services:
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
 
   postgres:
-    container_name: ladder-postgres
+    container_name: ladderdb
     image: postgres:latest
     ports:
       - 5432:5432
@@ -70,13 +70,14 @@ services:
     image: grafana/grafana
     container_name: ladder-grafana
     ports:
-      - 3001:3001
-    # volumes:
-    #  - ./grafana/grafana-volume:/var/lib/grafana
+      - 3001:3000
+    volumes:
+      - ./grafana/grafana-volume:/var/lib/grafana
     networks:
       - promnet
 
-  redis-db:
+  redis:
+    container_name: redis
     image: redis:latest
     volumes:
       - redis:/val/lib/redis/data
