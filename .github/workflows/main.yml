@@ -46,7 +46,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 cp --region ap-northeast-2 ./build-docker.zip s3://codedeploy.easyhost.kr/EASYHOST-FRONTEND/build-docker.zip
+          aws s3 cp --region ap-northeast-2 ./build-docker.zip s3://teamcc-bucket/Deploy_CICD/build-docker.zip 
 
       - name: Deploy # Deploy to EC2
         run: aws deploy create-deployment
