@@ -50,7 +50,7 @@ jobs:
 
       - name: Deploy # Deploy to EC2
         run: aws deploy create-deployment
-          --application-name easyhost-frontend
+          --application-name LadderDocker
           --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name frontend
-          --s3-location bucket=codedeploy.easyhost.kr,key=EASYHOST-FRONTEND/build-docker.zip,bundleType=zip
+          --deployment-group-name deploy-group
+          --s3-location bucket=teamcc-bucket,key=Deploy_CICD/build-docker.zip,bundleType=zip
