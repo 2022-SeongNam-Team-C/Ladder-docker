@@ -22,6 +22,12 @@ jobs:
           submodules: true
       - name: Check Node v # Node v 확인
         run: node -v
+      - name: Create Prod Config
+        run: |
+          touch .env
+          echo "$PROD_ENV" > .env
+        env:
+          PROD_ENV: ${{ secrets.PROD_ENV }}
       - name: Install Dependencies # AI 레포지토리 의존 파일 설치
         working-directory: ./Ladder-AI
         run: pip install -r requirements.txt

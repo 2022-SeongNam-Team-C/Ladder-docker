@@ -6,7 +6,7 @@ services:
     build:
       context: ./Ladder-Frontend
     ports:
-      - 8080:80
+      - "8080:80"
     volumes:
       - frontend:/var/lib/frontend/data
 
@@ -16,7 +16,7 @@ services:
     build:
       context: ./Ladder-Backend
     ports:
-      - 5123:5123
+      - "5123:5123"
     volumes:
       - backend:/var/lib/backend/data
     environment:
@@ -27,7 +27,7 @@ services:
     container_name: ladder-postgres
     image: postgres:latest
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_DB=${PG_DB}
       - POSTGRES_USER=${PG_USER}
@@ -39,7 +39,7 @@ services:
     container_name: ladder-pgadmin
     image: dpage/pgadmin4
     ports:
-      - 8088:80
+      - "8088:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
@@ -50,7 +50,7 @@ services:
     build: 
       context: ./Ladder-AI
     ports:
-      - 5000:5000
+      - "5000:5000"
     environment:
       FLASK_DEBUG: 1 
     volumes:
@@ -62,7 +62,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     container_name: ladder-prometheus
     ports:
-      - 9090:9090
+      - "9090:9090"
     networks:
       - promnet
 
@@ -70,7 +70,7 @@ services:
     image: grafana/grafana
     container_name: ladder-grafana
     ports:
-      - 3001:3001
+      - "3001:3001"
     # volumes:
     #  - ./grafana/grafana-volume:/var/lib/grafana
     networks:
