@@ -2,10 +2,10 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /usr/share/nginx/html/frontend
+    destination: /home/Ladder
     overwrite: yes
 permissions:
-  - object: /usr/share/nginx/html/frontend
+  - object: /home/Ladder
     owner: root
     group: root
     mode: 755
