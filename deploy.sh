@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
- echo "> FE 배포"
+ echo "> Docker 배포"
 
 
 sudo docker kill $(docker ps -q)
