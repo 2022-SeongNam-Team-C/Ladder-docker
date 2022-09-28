@@ -17,7 +17,7 @@ docker-compose -f docker-compose.yml up -d --build
 
 ```jsx
 redis 사용법
-   - docker exec -it ladder-docker_redis-db_1 redis-cli
+   - docker exec -it redis redis-cli
 	 - get ${keyname} 으로 해당 아이디의 토큰을 조회할 수 있음
    - 종료는 ctrl + z
    - port number: 6379
