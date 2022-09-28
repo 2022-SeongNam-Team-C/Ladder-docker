@@ -97,8 +97,18 @@ services:
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
+    restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/prometheus
+    container_name: ladder-prometheus
+    command: 
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=90d   # 90일보다 오래된 metrics는 삭제
+      - --storage.tsdb.retention.size=10GB  # 10GB를 넘을 시 오래된 metrics 삭제
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/use/share/prometheus/consoles
     ports:
       - 9090:9090
     networks:
@@ -107,10 +117,16 @@ services:
   grafana:
     container_name: grafana
     image: grafana/grafana
+    restart: unless-stopped
     ports:
-      - 3001:3001
-    # volumes:
-    #  - ./grafana/grafana-volume:/var/lib/grafana
+      - 3001:3000
+    volumes:
+      # - ./grafana/grafana-volume:/var/lib/grafana
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
     networks:
       - promnet
 
@@ -122,6 +138,18 @@ services:
     ports:
       - "6379:6379"
 
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+      - ai
+
 networks:
   promnet:
     driver: bridge    
@@ -132,5 +160,4 @@ volumes:
     backend: {}
     ai:
     redis:
-
 
