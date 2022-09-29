@@ -2,26 +2,30 @@ version: "3"
 
 services:
   frontend:
-    container_name: ladder-frontend
+    container_name: frontend
     build:
       context: ./Ladder-Frontend
     ports:
       - 8080:80
     volumes:
-      - frontend:/var/lib/frontend/data
+      - ./Ladder-Frontend/:/Ladder-Frontend
 
   backend:
-    restart: unless-stopped
-    container_name: ladder-backend
+    container_name: backend
     build:
       context: ./Ladder-Backend
+    expose:
+      - 5123
     ports:
       - 5123:5123
     volumes:
       - backend:/var/lib/backend/data
     environment:
       FLASK_DEBUG: 1 
+    depends_on:
+      - postgres
     command: gunicorn -w 1 -b 0.0.0.0:5123 app:app --reload
+    tty: true
 
   postgres:
     container_name: ladderdb
@@ -36,7 +40,7 @@ services:
         - postgres:/var/lib/postgres
 
   pgadmin:
-    container_name: ladder-pgadmin
+    container_name: pgadmin
     image: dpage/pgadmin4
     ports:
       - 8088:80
@@ -44,25 +48,59 @@ services:
       - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+      
+  rabbit:
+    container_name: rabbitmq
+    hostname: rabbit
+    image: rabbitmq:3-management
+    command: rabbitmq-server
+    restart: unless-stopped
+    environment:
+      - RABBITMQ_DEFAULT_USER=darling
+      - RABBITMQ_DEFAULT_PASS=0829
+    ports:
+    # 메시지 대기열을 사용하려는 서버의 경우에만 5672필요
+      - 5672:5672
+    # management
+      - 15672:15672
+    depends_on:
+      - backend
+      - ai
+
+  celery:
+    container_name: celery
+    build:
+      context: ./Ladder-Backend
+      dockerfile: Dockerfile
+    restart: unless-stopped  
+    # env_file:
+    #   - ./settings/.env
+    depends_on:
+      - "rabbit"
+      - "backend"
+      - "ai"
+    command: ["celery","-A", "service.image_service", "worker", "--loglevel=info"]  
+    volumes:
+      - backend:/usr/src/app
 
   ai:
-    container_name: ladder-ai
+    container_name: ai
     build: 
       context: ./Ladder-AI
     ports:
-      - 5000:5000
+      - 5555:5555
     environment:
       FLASK_DEBUG: 1 
     volumes:
       - ai:/var/lib/ai/data
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:latest
     restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus:/prometheus
-    container_name: ladder-prometheus
     command: 
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
@@ -77,9 +115,9 @@ services:
       - promnet
 
   grafana:
+    container_name: grafana
     image: grafana/grafana
     restart: unless-stopped
-    container_name: ladder-grafana
     ports:
       - 3001:3000
     volumes:
@@ -119,7 +157,7 @@ networks:
 volumes:
     postgres:
     frontend:
-    backend:
+    backend: {}
     ai:
     redis:
 
