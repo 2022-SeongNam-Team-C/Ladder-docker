@@ -22,3 +22,9 @@ redis 사용법
    - 종료는 ctrl + z
    - port number: 6379
 ```
+
+| Name    | 유희진                                     |            염태민                        | 정혜린                                      | 정길연                                | 구일승                               | | 최태현                              |
+| ------- | ---------------------------------------- | ---------------------------------------- | -------------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| Profile | <img width="200px" src="https://avatars.githubusercontent.com/u/52391627?v=4" />                               | <img width="200px" src="https://avatars.githubusercontent.com/u/86594108?v=4" />                               | <img width="200px" src="https://avatars.githubusercontent.com/u/108711890?v=4" />                               | <img width="200px" src="https://avatars.githubusercontent.com/u/108566232?v=4" />                               | <img width="200px" src="https://avatars.githubusercontent.com/u/52391627?v=4" />  | <img width="200px" src="https://avatars.githubusercontent.com/u/52391627?v=4" />                              |
+| Role    | Team Leader, AI, DevOps, Backend                                    | Frontend, DevOps                                   | Backend                                       | Frontend                                 | Backend, DevOps                                 |
+| gitHub  | [gilyeon00](https://github.com/gilyeon00)                                     | [KoneJ](https://github.com/KoneJ)                                   | [@monitor5](https://github.com/monitor5)                                       | [@wisdomis](https://github.com/wisdomis)                                 | [@aristo0922](https://github.com/)                                 |
