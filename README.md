@@ -36,6 +36,7 @@
 - <b>AWS</b> : EC2
 <div align =center> 
 | DevOps | Backend | Storage | Frontend | ETC|
+| ------- | ------ | ------- | ---------| -- | 
 | <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> | <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazon%20s3&logoColor=black"> | | <img src="https://img.shields.io/badge/Git-73398D?style=for-the-badge&logo=git&logoColor=white">
 
 
