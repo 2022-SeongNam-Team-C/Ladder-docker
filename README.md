@@ -47,13 +47,13 @@ cd “YOUR_DOWNLOAD_LOCATION”
 
 git clone --recursive https://github.com/2022-SeongNam-Team-C/Ladder-docker.git
 
-docker-compose -f docker-compose.yml up -d --build 
-
 git submodule init
 
 git submodule update
  
 git submodule update --recursive --remote
+
+docker-compose -f docker-compose.yml up -d --build 
 
 ```
 #### If you connect to localhost (or localhost:8080), you can see the browser page!
